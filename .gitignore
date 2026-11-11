@@ -1,0 +1,63 @@
+# macPaint: what goes into the public repository.
+#
+# ALLOW LIST: everything is ignored first, and only the parts under "PUBLIC" are let back in.
+# A new file or folder stays private until it is added here on purpose.
+# Check with:   git status --ignored   or   git add -n .
+
+# ---------------------------------------------------------------- 1. ignore everything
+/*
+
+# ---------------------------------------------------------------- 2. PUBLIC
+!/.gitignore
+!/README.md
+!/LICENSE
+!/package.json
+!/index.html
+
+# the editors (web app) and the tests with their small fixtures
+!/src/
+!/test/
+!/assets/
+
+# the macOS wrapper and the tools that build the app and the disk image
+!/macos/
+!/tools/
+
+# the ready-made disk image that the README links to
+!/downloads/
+/downloads/*
+!/downloads/macPaint.dmg
+
+# ---------------------------------------------------------------- 3. NEVER, even if listed above
+# build output and caches (rebuilt by tools/build_dmg.sh, so only the final .dmg in downloads/ is kept)
+build/
+node_modules/
+dist/
+*.app
+*.log
+
+# signing material and secrets
+*.pem
+*.key
+*.p8
+*.p12
+*.cer
+*.mobileprovision
+*.provisionprofile
+.env
+.env.*
+
+# assistant, editor and OS files
+.claude/
+.vscode/
+.idea/
+.DS_Store
+.DS_Store
+node_modules/
+dist/
+build/
+*.dmg
+*.zip
+.env
+*.pem
+*.p12

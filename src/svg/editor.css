@@ -1,0 +1,37 @@
+/* SVG 편집기 — macOS 스타일(단색·헤어라인). 도구는 오른쪽, 속성은 왼쪽 */
+.svgx { --bg: #f5f5f7; --panel: #f6f6f8; --line: rgba(0, 0, 0, .1); --text: #1d1d1f; --muted: #86868b; --control: rgba(0, 0, 0, .05); --control-hover: rgba(0, 0, 0, .09); --accent: #0a84ff; --work: #e8e8ec;
+  display: grid; grid-template-columns: 44px minmax(0, 1fr) 236px; grid-template-rows: 38px minmax(0, 1fr) 24px; height: 100%; min-height: 0; background: var(--bg); color: var(--text); font: 12.5px/1.4 -apple-system, "SF Pro Text", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+@media (prefers-color-scheme: dark) { .svgx { --bg: #1e1e1e; --panel: #2a2a2c; --line: rgba(255, 255, 255, .1); --text: #f5f5f7; --muted: #98989d; --control: rgba(255, 255, 255, .07); --control-hover: rgba(255, 255, 255, .13); --work: #161617; } }
+.svgx button { font: inherit; color: inherit; border: 0; background: transparent; border-radius: 6px; padding: 3px 9px; cursor: default; }
+.svgx button:hover:not(:disabled) { background: var(--control-hover); } .svgx button:disabled { opacity: .3; }
+.svgx button.on, .svgx button.primary { background: var(--accent); color: #fff; }
+.svgx-bar { grid-column: 1 / -1; display: flex; align-items: center; gap: 2px; padding: 0 10px; background: var(--panel); border-bottom: 1px solid var(--line); overflow-x: auto; white-space: nowrap; }
+.svgx-bar .sep { width: 1px; height: 16px; background: var(--line); margin: 0 6px; } .svgx-bar .grow { flex: 1; } .svgx-bar .zoomval { min-width: 44px; text-align: center; color: var(--muted); }
+.svgx-bar button.primary { margin-left: 2px; }
+.svgx-tools { grid-column: 1; grid-row: 2; display: flex; flex-direction: column; gap: 2px; padding: 8px 6px; background: var(--panel); border-right: 1px solid var(--line); overflow-y: auto; }
+.svgx-tools .tool { width: 32px; height: 28px; padding: 0; display: grid; place-items: center; border-radius: 7px; } .svgx-tools .tool svg { width: 16px; height: 16px; stroke-width: 1.45; }
+.svgx-tools hr { border: 0; border-top: 1px solid var(--line); width: 100%; margin: 3px 0; }
+.svgx-stage { grid-column: 2; grid-row: 2; position: relative; overflow: hidden; background: var(--work); cursor: default; touch-action: none; }
+.svgx-stage[data-tool="pen"], .svgx-stage[data-tool="rect"], .svgx-stage[data-tool="ellipse"], .svgx-stage[data-tool="line"], .svgx-stage[data-tool="polygon"], .svgx-stage[data-tool="star"], .svgx-stage[data-tool="eyedrop"] { cursor: crosshair; }
+.svgx-stage[data-tool="text"] { cursor: text; } .svgx-stage[data-tool="hand"], .svgx-stage.pan { cursor: grab; } .svgx-stage[data-tool="zoom"] { cursor: zoom-in; }
+.svgx-vp { width: 100%; height: 100%; display: block; } .svgx-vp .board { filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .25)) drop-shadow(0 8px 20px rgba(0, 0, 0, .14)); }
+.svgx-vp .ob { fill: none; stroke: var(--accent); } .svgx-vp .sb { fill: none; stroke: var(--accent); stroke-dasharray: 4 3; }
+.svgx-vp .hd { fill: #fff; stroke: var(--accent); } .svgx-vp .hd.on { fill: var(--accent); } .svgx-vp .mq { fill: rgba(10, 132, 255, .1); stroke: var(--accent); stroke-dasharray: 4 3; }
+.svgx-vp .draft { opacity: .75; } .svgx-vp [data-h^="n"][data-h$="w"], .svgx-vp [data-h="se"] { cursor: nwse-resize; } .svgx-vp [data-h="ne"], .svgx-vp [data-h="sw"] { cursor: nesw-resize; } .svgx-vp [data-h="n"], .svgx-vp [data-h="s"] { cursor: ns-resize; } .svgx-vp [data-h="e"], .svgx-vp [data-h="w"] { cursor: ew-resize; } .svgx-vp [data-h="rot"] { cursor: grab; }
+.svgx-ta { position: absolute; z-index: 3; border: 1px dashed var(--accent); background: transparent; outline: none; resize: none; overflow: hidden; padding: 0; margin: 0; font-family: "Apple SD Gothic Neo", sans-serif; line-height: 1.2; }
+.svgx-side { grid-column: 3; grid-row: 2; overflow-y: auto; background: var(--panel); border-left: 1px solid var(--line); padding: 2px 12px 16px; }
+.svgx-side section { padding: 10px 0; border-bottom: 1px solid var(--line); } .svgx-side section:last-child { border-bottom: 0; }
+.svgx-side h4 { margin: 0 0 7px; font-size: 11px; color: var(--muted); font-weight: 600; }
+.svgx-side .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 5px 0; } .svgx-side .row > span:first-child { color: var(--muted); }
+.svgx-side input[type=number], .svgx-side select { width: 88px; font: inherit; padding: 2px 6px; border: .5px solid var(--line); border-radius: 6px; background: var(--control); color: inherit; }
+.svgx-side input[type=range] { accent-color: var(--accent); width: 108px; }
+.svgx-side input[type=color] { width: 32px; height: 22px; padding: 0; border: .5px solid var(--line); border-radius: 6px; background: none; } .svgx-side .col { display: flex; gap: 6px; align-items: center; } .svgx-side .col button { padding: 1px 7px; font-size: 11.5px; background: var(--control); }
+.svgx-side .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; } .svgx-side .grid button { padding: 3px 0; font-size: 11.5px; background: var(--control); }
+.svgx-side .layers .list { max-height: 240px; overflow-y: auto; border: .5px solid var(--line); border-radius: 8px; margin-bottom: 8px; background: var(--control); }
+.svgx-side .lyr { display: flex; align-items: center; gap: 4px; padding: 3px 6px; } .svgx-side .lyr.on { background: rgba(10, 132, 255, .16); } .svgx-side .lyr button { padding: 0 2px; background: none; } .svgx-side .lyr .nm { flex: 1; } .svgx-side .lyr input { width: 100%; }
+.svgx-side .obj { padding: 2px 8px 2px 34px; color: var(--muted); font-size: 11.5px; } .svgx-side .obj.on { background: var(--accent); color: #fff; }
+.svgx-status { grid-column: 1 / -1; display: flex; justify-content: space-between; padding: 3px 12px; font-size: 11.5px; color: var(--muted); background: var(--panel); border-top: 1px solid var(--line); }
+.svgx-side .stabs { display: flex; gap: 1px; padding: 2px; margin: 10px 0 2px; border-radius: 7px; background: var(--control); } .svgx-side .stabs button { flex: 1; padding: 2px 0; } .svgx-side .stabs button.on { background: var(--bg); color: var(--text); box-shadow: 0 .5px 2px rgba(0, 0, 0, .25); }
+.svgx-side .code textarea { width: 100%; box-sizing: border-box; height: 190px; font: 11px/1.5 ui-monospace, "SF Mono", Menlo, monospace; padding: 8px; border: .5px solid var(--line); border-radius: 8px; background: var(--control); color: inherit; resize: vertical; margin-bottom: 8px; white-space: pre; }
+.svgx-side .err { color: #ff453a; margin: 6px 0 0; }
+.svgx-vp .sg { fill: #fff; stroke: var(--accent); } .svgx-vp .sg[data-seg$="|h"] { cursor: ns-resize; } .svgx-vp .sg[data-seg$="|v"] { cursor: ew-resize; }
